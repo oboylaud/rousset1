@@ -218,7 +218,7 @@ fichier_source = 'data_cartes/data_mpm.csv'
 data_carte = pd.read_csv(fichier_source, sep =',')
 data_carte['codgeo'] = data_carte['codgeo'].astype(str)
 data_carte = carte.merge(data_carte, how='inner',on ='codgeo')
-data_carte = data_carte.fillna(0)
+#data_carte = data_carte.fillna(0)
 data_carte = data_carte.to_crs(epsg=3857)
 
 
