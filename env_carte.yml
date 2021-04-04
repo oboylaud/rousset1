@@ -1,0 +1,5 @@
+name: _env_carte
+channels:
+  - conda-forge
+  - defaults
+prefix: /home/olivier/anaconda3/envs/_env_carte
