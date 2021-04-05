@@ -10,6 +10,15 @@ sns.set(style="ticks")
 import contextily as ctx
 import streamlit as st
 
+hide_streamlit_style = """
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+</style>
+
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
 def exploreFile(customers):
     print("{0:30} {1:25} {2:25} {3:25}".format("Name", "n-row", "unique values", "missing values"))
     for i in customers:
@@ -199,7 +208,7 @@ def cartographie():
     st.title('Comparer Rousset avec les autres communes de la Métropole')
     with st.beta_expander("Aide"):
         st.write("""
-                 « Cliquer sur 'construire la carte' après avoir sélectionné les paramètres. 'Choix de l’indicateur' permet de sélectionner l’indicateur. « Choix du nombre de groupe » demande d’indiquer le nombre de groupe de communes qui est souhaité. « Choix de la méthode pour la construction de groupes » propose de choisir entre 3 méthodes. « Affichage des villes » propose de choisir de voir l’ensemble des noms des communes ou uniquement les principales..
+                 « Cliquer sur 'construire la carte' après avoir sélectionné les paramètres. 'Choix de l’indicateur' permet de sélectionner la l’indicateur sur lequel porte l'analyse. « Choix du nombre de classe » demande d’indiquer le nombre de groupe de communes qui doit être constitué. « Choix de la méthode pour la construction de groupes » propose de choisir entre 3 méthodes (seuil naturel, quantiles, interval égal). « Affichage des villes » propose de choisir entre voir s'afficher l’ensemble des noms des communes ou uniquement le nom des principales communes.
             """)
     st.sidebar.header("Choix de l'indicateur et des paramètres de la carte")
     indic = st.sidebar.selectbox("Choix de l'indicateur",('CVAE par habitant','CFE par habitant','CET par habitant','TASCOM par habitant','IFER par habitant','TAFNB par habitant', 'Bases CFE par habitant','Bases brutes de FB par habitant','Bases brutes de FNB par habitant','Bases brutes de TH par habitant', 'Bases nettes FB par habitant','Bases nettes FNB par habitant','Bases nettes TH par habitant','ifer_pc','Tascom_pc', 'CVAE par habitant -total-','CET par habitant -total-',"AC/RFF*100",'Pot. fin. par hab. com/metropole','Revenu imposable par hab.','Part logements sociaux'))
