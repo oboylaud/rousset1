@@ -435,7 +435,7 @@ def chargement_data_carte_base():
 #st.write(' ')
 #st.write(' ')
 #st.sidebar.header('MENU')
-st.title("Contributions des 92 communes à la fiscalité économique locale de la Métropole d'Aix-Marseille-Provence (2016-2020)")
+st.title("La contribution des communes d'Aix-Marseille-Provence à la fiscalité locale 2016-2020")
 c1, c2 = st.beta_columns((4, 1))
 with c2:
     st.write(" ")
