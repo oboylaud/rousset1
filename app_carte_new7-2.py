@@ -241,103 +241,8 @@ def description_indic_2020():
             if code_var == "Total_2020":
                 presentation_total() 
 
-def parametre_cartes_seuil():
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write('Paramètres')
-    kl = st.number_input("Nombre de classes", min_value=1, value=7, step=1)  
-    method = st.selectbox('Méthode de construction des classes',('Seuils naturels', 'Quantiles','Intervalle égal'))
-    if method =='Seuils naturels':
-        m = mapclassify.NaturalBreaks
-    if method =='Quantiles':
-        m = mapclassify.Quantiles
-        meth = 'Quantile'
-    if method =='Intervalle égal':
-        m = mapclassify.EqualInterval
-        meth = "Intervalle égal"
 
-def parametre_cartes_quantiles():
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write('Paramètres')
-    kl = st.number_input("Nombre de classes", min_value=1, value=7, step=1)  
-    method = st.selectbox('Méthode de construction des classes',('Seuils naturels', 'Quantiles','Intervalle égal'))
-    if method =='Seuils naturels':
-        m = mapclassify.NaturalBreaks
-    if method =='Quantiles':
-        m = mapclassify.Quantiles
-        meth = 'Quantile'
-    if method =='Intervalle égal':
-        m = mapclassify.EqualInterval
-        meth = "Intervalle égal"
+
 
 def cartographie_classe_euros():
     #c1, c2 = st.beta_columns((6, 1))
@@ -369,9 +274,55 @@ def cartographie_classe_euros():
     c1, c2 = st.beta_columns((6, 1)) 
     with c2 :
         # parametre par defaut
-        m = mapclassify.NaturalBreaks
-        kl= 7            
-        parametre_cartes_seuil()
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write('Paramètres')
+        kl = st.number_input("Nombre de classes", min_value=1, value=7, step=1)  
+        method = st.selectbox('Méthode de construction des classes',('Seuils naturels', 'Quantiles','Intervalle égal'))
+        if method =='Seuils naturels':
+            m = mapclassify.NaturalBreaks
+        if method =='Quantiles':
+            m = mapclassify.Quantiles
+            meth = 'Quantile'
+        if method =='Intervalle égal':
+            m = mapclassify.EqualInterval
+            meth = "Intervalle égal"
     with c1:
         q10 = m(data_carte[indic],k=kl)
         mapping = dict([(i,s) for i,s in enumerate(q10.get_legend_classes(fmt="{:.0f}"))])
@@ -428,12 +379,51 @@ def cartographie_classe_evo():
     st.write(' ')
     c1a, c2a = st.beta_columns((6, 1)) 
     with c2a :            
-        m = mapclassify.Quantiles
-        kl= 7
-        #voir_parametre=st.sidebar.checkbox('Voir et modifier les paramtétres')            
-        #if voir_parametre:
-        #    parametre_cartes_quantiles()
-        parametre_cartes_quantiles()        
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write('Paramètres')
+        kl = st.number_input("Nombre de classes", min_value=1, value=7, step=1)  
+        method = st.selectbox('Méthode de construction des classes',('Seuils naturels', 'Quantiles','Intervalle égal'))
+        if method =='Seuils naturels':
+            m = mapclassify.NaturalBreaks
+        if method =='Quantiles':
+            m = mapclassify.Quantiles
+            meth = 'Quantile'
+        if method =='Intervalle égal':
+            m = mapclassify.EqualInterval
+            meth = "Intervalle égal"       
     with c1a:
         q10 = m(data_carte[indic1],k=kl)
         mapping = dict([(i,s) for i,s in enumerate(q10.get_legend_classes(fmt="{:.0f}"))])
@@ -454,36 +444,6 @@ def cartographie_classe_evo():
     #st.write('méthode de construction des classes : ',meth)
     
 
-def cartographie_classe_3():
-    c1a, c2a = st.beta_columns((4, 1))
-    st.sidebar.write(" ")
-    st.sidebar.write(" ")
-    couleur = 'Oranges'
-    transparence = 0.95
-    source = "Source :  DGCL"
-    titre = titreindic3
-    with c2a :
-        m = mapclassify.Quantiles
-        kl= 7            
-        parametre_cartes_quantiles()        
-    with c1a:
-        q10 = m(data_carte[indic3],k=kl)
-        mapping = dict([(i,s) for i,s in enumerate(q10.get_legend_classes(fmt="{:.0f}"))])
-        f, ax = plt.subplots(1, figsize=(14, 14))
-        data_carte.assign(cl=q10.yb).plot(column='cl', categorical=True, k=kl, cmap=couleur, alpha=transparence, linewidth=0.9, ax=ax, edgecolor='black', legend=True, legend_kwds={'loc': 'upper left'})
-        ax.set_axis_off()
-        replace_legend_items(ax.get_legend(), mapping)
-        #ax.set_suptitle(choix_unit)
-        ax.set_title(titre,fontsize=14, weight = 'bold')
-        plt.figtext(.15,.22,source,fontsize=12,ha='left')
-        ctx.add_basemap(ax,source=ctx.providers.CartoDB.Positron) # fonds de carte
-        ensemble_des_communes()
-        st.pyplot(f)
-    #st.write('méthode de construction des classes : ',meth)
-    mycol=['codgeo','commune',indic3]
-    tab = data_carte[mycol]
-    with st.beta_expander("Afficher les données"):
-        st.dataframe(tab)   
 
 
 
