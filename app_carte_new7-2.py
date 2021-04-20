@@ -219,7 +219,7 @@ def presentation_total():
     st.write("")
 
 def description_indic_2020():
-    with st.beta_expander("En savoir plus sur l'indicateur"):
+    with st.sidebar.beta_expander("En savoir plus sur l'indicateur"):
             if code_var == 'CVAE_GFP_2020':
                 presentation_cvae()
             if code_var == 'CVAE_DUE_GFP_2020':
@@ -252,55 +252,23 @@ def cartographie_classe_euros():
     transparence = 0.95
     source = "Source : calculs sur données DGFIP et DGCL"
     titre = titreindic
-    choix_unit = st.sidebar.selectbox('UNITE',('en € par habitant','en 1000 €', 'en 0/00 de la Métropole'))
-    if choix_unit =='en € par habitant':
-        indic = 'en_euros_par_habitant'
-    if choix_unit == 'écart à la moyenne par hab.':
-       indic='ecart'
-    if choix_unit =='en 0/00 de la Métropole':
-        indic = 'poids_dans_amp'
-    if choix_unit =='en 1000 €':
-            indic = 'en_milliers'
-    mycol=['codgeo','commune',indic]
-    tab = data_carte[mycol]
-    c3, c4 = st.beta_columns((1, 1))
-    with c3:
-        with st.beta_expander("Afficher le tableau avec les données"):
-            st.write(titre+', '+choix_unit)
-            st.dataframe(tab)
-    with c4:
-        description_indic_2020()
-    st.write(' ')
-    c1, c2 = st.beta_columns((6, 1)) 
     with c2 :
-        # parametre par defaut
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
+        choix_unit = st.selectbox('UNITE',('en € par habitant','en 1000 €', 'en 0/00 de la Métropole'))
+        if choix_unit =='en € par habitant':
+            indic = 'en_euros_par_habitant'
+        if choix_unit == 'écart à la moyenne par hab.':
+            indic='ecart'
+        if choix_unit =='en 0/00 de la Métropole':
+            indic = 'poids_dans_amp'
+        if choix_unit =='en 1000 €':
+            indic = 'en_milliers'
+       # parametre par defaut
+        #st.write(" ")
+        #st.write(" ")
+        #st.write(" ")
+        #st.write(" ")
+        #st.write(" ")
+        #st.write(" ")
         st.write(" ")
         st.write(" ")
         st.write(" ")
@@ -341,64 +309,51 @@ def cartographie_classe_euros():
         ensemble_des_communes()
         st.pyplot(f)
     #st.write('méthode de construction des classes : ',meth)
-       
+    mycol=['codgeo','commune',indic]
+    tab = data_carte[mycol]
+    c3, c4 = st.beta_columns((1, 1))
+    with c3:
+        with st.beta_expander("Afficher le tableau avec les données"):
+            st.write(titre+', '+choix_unit)
+            st.dataframe(tab)
+    with c4:
+        description_indic_2020()
+    #st.write(' ') 
 
 
 def cartographie_classe_evo():
-    #c1a, c2a = st.beta_columns((4, 1))
+    #c1a, c2a = st.beta_columns((6, 1))
     #st.sidebar.write(" ")
     #st.sidebar.write(" ")
     couleur = 'Oranges'
     transparence = 0.95
     source = "Source : calculs sur données DGFIP et DGCL"
     titre = titreindic1
-    choix_unit1 = st.sidebar.selectbox('UNITE',('en € par habitant',"taux de croissance",'en K€'))
-    if choix_unit1 =='taux de croissance':
-        indic1 = 'TC'
-    if choix_unit1 == 'en K€':
-        indic1='ecart en k€'
-    if choix_unit1 == 'en € par habitant':
-        indic1='ecart en euro par hab'
-    mycol=['codgeo','commune',indic1]
-    tab = data_carte[mycol]
-    c3a, c4a = st.beta_columns((1, 1))
-    with c3a:
-        with st.beta_expander("Afficher le tableau avec les données"):
-            st.write(titre+', '+choix_unit1)
-            st.dataframe(tab)
-    with c4a:
-        with st.beta_expander("En savoir plus sur l'indicateur"):
-            if code_var1 == 'CVAE_GFP_2020':
-                presentation_cvae()
-            if code_var1 == 'CFE_BASE_GFP_2020':
-                presentation_cfe()
-            if code_var1 == 'CFE_PROD_GFP_2020':
-                presentation_cfe()
-            if code_var1 == 'IFER_2020':
-                presentation_ifer()
-    st.write(' ')
-    c1a, c2a = st.beta_columns((6, 1)) 
-    with c2a :            
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
+    #c1a, c2a = st.beta_columns((6, 1)) 
+    with c2 :
+        choix_unit1 = st.selectbox('UNITE',('en € par habitant',"taux de croissance",'en K€'))
+        if choix_unit1 =='taux de croissance':
+            indic1 = 'TC'
+        if choix_unit1 == 'en K€':
+            indic1='ecart en k€'
+        if choix_unit1 == 'en € par habitant':
+            indic1='ecart en euro par hab'
+        #st.write(" ")
+        #st.write(" ")
+        #st.write(" ")
+        #st.write(" ")
+        #st.write(" ")
+        #st.write(" ")
+        #st.write(" ")
+        #st.write(" ")
+        #st.write(" ")
+        #st.write(" ")
+        #st.write(" ")
+        #st.write(" ")
+        #st.write(" ")
+        #st.write(" ")
+        #st.write(" ")
+        #st.write(" ")
         st.write(" ")
         st.write(" ")
         st.write(" ")
@@ -424,7 +379,7 @@ def cartographie_classe_evo():
         if method =='Intervalle égal':
             m = mapclassify.EqualInterval
             meth = "Intervalle égal"       
-    with c1a:
+    with c1:
         q10 = m(data_carte[indic1],k=kl)
         mapping = dict([(i,s) for i,s in enumerate(q10.get_legend_classes(fmt="{:.0f}"))])
         f, ax = plt.subplots(1, figsize=(14, 14))
@@ -442,7 +397,23 @@ def cartographie_classe_evo():
         ensemble_des_communes()
         st.pyplot(f)
     #st.write('méthode de construction des classes : ',meth)
-    
+    mycol=['codgeo','commune',indic1]
+    tab = data_carte[mycol]
+    c3a, c4a = st.beta_columns((1, 1))
+    with c3a:
+        with st.beta_expander("Afficher le tableau avec les données"):
+            st.write(titre+', '+choix_unit1)
+            st.dataframe(tab)
+    with c4a:
+        with st.sidebar.beta_expander("En savoir plus sur l'indicateur"):
+            if code_var1 == 'CVAE_GFP_2020':
+                presentation_cvae()
+            if code_var1 == 'CFE_BASE_GFP_2020':
+                presentation_cfe()
+            if code_var1 == 'CFE_PROD_GFP_2020':
+                presentation_cfe()
+            if code_var1 == 'IFER_2020':
+                presentation_ifer()
 
 
 
@@ -464,31 +435,34 @@ def chargement_data_carte_base():
 #st.write(' ')
 #st.write(' ')
 #st.sidebar.header('MENU')
-st.sidebar.title('Contributions des 92 communes à la Métropole (2016-2020)')
-choix = st.sidebar.selectbox("PERIODE",('2020','Evolution entre 2016 et 2020'))
+st.title("Contributions des 92 communes à la fiscalité économique locale de la Métropole d'Aix-Marseille-Provence (2016-2020)")
+c1, c2 = st.beta_columns((4, 1))
+with c2:
+    st.write(" ")
+    st.write(" ")
+    choix = st.radio(" ",('2020','Evolution entre 2016 et 2020'))
 
 
 if choix == 'Accueil':
-    st.title("Fiscalité économique locale d'Aix-Marseille-Provence : ")
-    st.title("Contributions des 92 communes (2016-2020)")
-    st.write(" ")
-    st.write(" ")
-    #st.header("Travaux réalisés pour la Ville de Rousset")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    #st.write("Selectionner le module désiré dans le menu à gauche de l'écran")
+    #st.title("Fiscalité économique locale d'Aix-Marseille-Provence : ")
+    sr.write(" ")
+    
 
 
 if choix == '2020':
+    #st.title("Contributions des 92 communes de la métropole d'Aix-Marseille-Provence à la fiscalité économique locale")
     data_carte=chargement_data_carte_base().copy()
     #st.sidebar.title('Contributions des 92 communes à la Métropole')
     #c1, c2 = st.beta_columns((4, 1))
     #st.header('Selectionner dans le menu déroulant la ressource fiscale')
     #st.sidebar.header('INDICATEURS')
-    selec = st.sidebar.selectbox("INDICATEUR ",('CVAE : due','CVAE : dégrevements', 'CVAE : total','CFE : base','CFE : produit', 'IFER','Tascom', "Compensations TP",'Total (sans ajustement)',"Total (avec ajustement)"))
+    #c1, c2 = st.beta_columns((5, 1))
+    with c2:
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        st.write(" ")
+        selec = st.selectbox("INDICATEUR ",('CVAE : due','CVAE : dégrevements', 'CVAE : total','CFE : base','CFE : produit', 'IFER','Tascom', "Compensations TP",'Total (sans ajustement)',"Total (avec ajustement)"))
     if selec == 'CFE : base':
         code_var = 'CFE_BASE_GFP_2020'
         titreindic = "Base 2020 de la Cotisation foncière des entreprises (CFE)"
@@ -535,7 +509,8 @@ if choix == 'Evolution entre 2016 et 2020':
     #st.header('Selectionner dans le menu déroulant la ressource fiscale')
     #code_var1="att1"
     #code_var2="att2"
-    selec2 = st.sidebar.selectbox("INDICATEUR",('CVAE','CFE : base','CFE : produit'))
+    with c2:
+        selec2 = st.selectbox("INDICATEUR",('CVAE','CFE : base','CFE : produit'))
     if selec2 == 'CVAE':
         code_var1 = 'CVAE_GFP_2020'
         code_var2 = 'CVAE_2016'
@@ -586,21 +561,7 @@ if choix == "Caractéristiques des communes":
     cartographie_classe_3()
 
 
-st.sidebar.write(' ')
-st.sidebar.write(' ')
-st.sidebar.write(' ')
-st.sidebar.write(' ')
-st.sidebar.write(' ')
-st.sidebar.write(' ')
-st.sidebar.write(' ')
-st.sidebar.write(' ')
-st.sidebar.write(' ')
-st.sidebar.write(' ')
-st.sidebar.write(' ')
-st.sidebar.write(' ')
-st.sidebar.write(' ')
-st.sidebar.write(' ')
-st.sidebar.write(' ')
+
 st.sidebar.write(' ')
 st.sidebar.write(' ')
 expander_bar = st.sidebar.beta_expander("A propos")
