@@ -500,7 +500,7 @@ if choix == '2020':
         titreindic = "Cotisation sur la valeur ajoutée des entreprises, 2020" 
     if selec == 'CVAE : due':
         code_var = 'CVAE_DUE_GFP_2020'
-        titreindic = "Cotisation sur la valeur ajoutée des entreprises due (payé par les entreprises), 2020" 
+        titreindic = "Cotisation sur la valeur ajoutée des entreprises due (payée par les entreprises), 2020" 
     if selec == 'CVAE : dégrevements':
         code_var = 'CVAE_DEG_GFP_2020'
         titreindic = "Dégrévements de la Cotisation sur la valeur ajoutée des entreprises, 2020"
