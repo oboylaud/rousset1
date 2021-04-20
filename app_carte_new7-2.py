@@ -217,34 +217,9 @@ def presentation_total():
     st.write("L'indicateur est construit comme la somme de la CVAE, de la CFE, de la Tascom, de l'IFER et de la taxe additionnelle à la taxe foncière sur les propriétés non bâties.")
     st.write("Il ne prend pas en compte les compensations de la réforme de la TP")
     st.write("")
-        
 
-def cartographie_classe_euros():
-    #c1, c2 = st.beta_columns((6, 1))
-    #st.sidebar.write(" ")
-    #st.sidebar.write(" ")
-    couleur = 'Oranges'
-    transparence = 0.95
-    source = "Source : calculs sur données DGFIP et DGCL"
-    titre = titreindic
-    choix_unit = st.sidebar.selectbox('UNITE',('en € par habitant','en 1000 €', 'écart la moyenne par hab.','en 0/00 de la Métropole'))
-    if choix_unit =='en € par habitant':
-        indic = 'en_euros_par_habitant'
-    if choix_unit == 'écart à la moyenne par hab.':
-        indic='ecart'
-    if choix_unit =='en 0/00 de la Métropole':
-        indic = 'poids_dans_amp'
-    if choix_unit =='en 1000 €':
-        indic = 'en_milliers'
-    mycol=['codgeo','commune',indic]
-    tab = data_carte[mycol]
-    c3, c4 = st.beta_columns((1, 1))
-    with c3:
-        with st.beta_expander("Afficher le tableau avec les données"):
-            st.write(titre+', '+choix_unit)
-            st.dataframe(tab)
-    with c4:
-        with st.beta_expander("En savoir plus sur l'indicateur"):
+def description_indic_2020():
+    with st.beta_expander("En savoir plus sur l'indicateur"):
             if code_var == 'CVAE_GFP_2020':
                 presentation_cvae()
             if code_var == 'CVAE_DUE_GFP_2020':
@@ -264,58 +239,139 @@ def cartographie_classe_euros():
             if code_var == "Total2020_cor":
                 presentation_total_avec_ajus()
             if code_var == "Total_2020":
-                presentation_total()   
+                presentation_total() 
+
+def parametre_cartes_seuil():
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write('Paramètres')
+    kl = st.number_input("Nombre de classes", min_value=1, value=7, step=1)  
+    method = st.selectbox('Méthode de construction des classes',('Seuils naturels', 'Quantiles','Intervalle égal'))
+    if method =='Seuils naturels':
+        m = mapclassify.NaturalBreaks
+    if method =='Quantiles':
+        m = mapclassify.Quantiles
+        meth = 'Quantile'
+    if method =='Intervalle égal':
+        m = mapclassify.EqualInterval
+        meth = "Intervalle égal"
+
+def parametre_cartes_quantiles():
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write('Paramètres')
+    kl = st.number_input("Nombre de classes", min_value=1, value=7, step=1)  
+    method = st.selectbox('Méthode de construction des classes',('Seuils naturels', 'Quantiles','Intervalle égal'))
+    if method =='Seuils naturels':
+        m = mapclassify.NaturalBreaks
+    if method =='Quantiles':
+        m = mapclassify.Quantiles
+        meth = 'Quantile'
+    if method =='Intervalle égal':
+        m = mapclassify.EqualInterval
+        meth = "Intervalle égal"
+
+def cartographie_classe_euros():
+    #c1, c2 = st.beta_columns((6, 1))
+    #st.sidebar.write(" ")
+    #st.sidebar.write(" ")
+    couleur = 'Oranges'
+    transparence = 0.95
+    source = "Source : calculs sur données DGFIP et DGCL"
+    titre = titreindic
+    choix_unit = st.sidebar.selectbox('UNITE',('en € par habitant','en 1000 €', 'en 0/00 de la Métropole'))
+    if choix_unit =='en € par habitant':
+        indic = 'en_euros_par_habitant'
+    if choix_unit == 'écart à la moyenne par hab.':
+       indic='ecart'
+    if choix_unit =='en 0/00 de la Métropole':
+        indic = 'poids_dans_amp'
+    if choix_unit =='en 1000 €':
+            indic = 'en_milliers'
+    mycol=['codgeo','commune',indic]
+    tab = data_carte[mycol]
+    c3, c4 = st.beta_columns((1, 1))
+    with c3:
+        with st.beta_expander("Afficher le tableau avec les données"):
+            st.write(titre+', '+choix_unit)
+            st.dataframe(tab)
+    with c4:
+        description_indic_2020()
     st.write(' ')
     c1, c2 = st.beta_columns((6, 1)) 
-    with c2 :            
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write('Paramètres')
-        kl = st.number_input("Nombre de classes", min_value=1, value=7, step=1)  
-        method = st.selectbox('Méthode de construction des classes',('Seuils naturels', 'Quantiles','Intervalle égal'))
-        if method =='Seuils naturels':
-            m = mapclassify.NaturalBreaks
-        if method =='Quantiles':
-            m = mapclassify.Quantiles
-            meth = 'Quantile'
-        if method =='Intervalle égal':
-            m = mapclassify.EqualInterval
-            meth = "Intervalle égal"
+    with c2 :
+        # parametre par defaut
+        m = mapclassify.NaturalBreaks
+        kl= 7            
+        parametre_cartes_seuil()
     with c1:
         q10 = m(data_carte[indic],k=kl)
         mapping = dict([(i,s) for i,s in enumerate(q10.get_legend_classes(fmt="{:.0f}"))])
@@ -372,55 +428,12 @@ def cartographie_classe_evo():
     st.write(' ')
     c1a, c2a = st.beta_columns((6, 1)) 
     with c2a :            
-        #st.write(' ')
-        #st.write(' ')
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(' ')
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write('Paramètres')
-        kl = st.number_input("Nombre de classes", min_value=1, value=7, step=1)  
-        method = st.selectbox('Méthode de construction des classes',('Quantiles','Seuils naturels', 'Intervalle égal'))
-        if method =='Quantiles':
-            m = mapclassify.Quantiles
-            meth = 'Quantile'
-        if method =='Seuils naturels':
-            m = mapclassify.NaturalBreaks
-        if method =='Intervalle égal':
-            m = mapclassify.EqualInterval
-            meth = "Intervalle égal"
+        m = mapclassify.Quantiles
+        kl= 7
+        #voir_parametre=st.sidebar.checkbox('Voir et modifier les paramtétres')            
+        #if voir_parametre:
+        #    parametre_cartes_quantiles()
+        parametre_cartes_quantiles()        
     with c1a:
         q10 = m(data_carte[indic1],k=kl)
         mapping = dict([(i,s) for i,s in enumerate(q10.get_legend_classes(fmt="{:.0f}"))])
@@ -450,24 +463,9 @@ def cartographie_classe_3():
     source = "Source :  DGCL"
     titre = titreindic3
     with c2a :
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write('Paramètres')
-        kl = st.number_input("Nombre de classes", min_value=1, value=7, step=1)  
-        method = st.selectbox('Méthode de construction des classes',('Quantiles','Seuils naturels', 'Intervalle égal'))
-        if method =='Quantiles':
-            m = mapclassify.Quantiles
-            meth = 'Quantile'
-        if method =='Seuils naturels':
-            m = mapclassify.NaturalBreaks
-        if method =='Intervalle égal':
-            m = mapclassify.EqualInterval
-            meth = "Intervalle égal"
+        m = mapclassify.Quantiles
+        kl= 7            
+        parametre_cartes_quantiles()        
     with c1a:
         q10 = m(data_carte[indic3],k=kl)
         mapping = dict([(i,s) for i,s in enumerate(q10.get_legend_classes(fmt="{:.0f}"))])
@@ -479,10 +477,6 @@ def cartographie_classe_3():
         ax.set_title(titre,fontsize=14, weight = 'bold')
         plt.figtext(.15,.22,source,fontsize=12,ha='left')
         ctx.add_basemap(ax,source=ctx.providers.CartoDB.Positron) # fonds de carte
-        #carte(indic)
-        #plt.savefig(indic+'.jpg')
-        #f.savefig(indic+".pdf", bbox_inches='tight')
-        #st.header(titre+' (en €, 2019)')
         ensemble_des_communes()
         st.pyplot(f)
     #st.write('méthode de construction des classes : ',meth)
@@ -581,7 +575,7 @@ if choix == 'Evolution entre 2016 et 2020':
     #st.header('Selectionner dans le menu déroulant la ressource fiscale')
     #code_var1="att1"
     #code_var2="att2"
-    selec2 = st.sidebar.selectbox("INDICATEUR",('CVAE','CFE : base','CFE : produit', 'IFER'))
+    selec2 = st.sidebar.selectbox("INDICATEUR",('CVAE','CFE : base','CFE : produit'))
     if selec2 == 'CVAE':
         code_var1 = 'CVAE_GFP_2020'
         code_var2 = 'CVAE_2016'
@@ -654,5 +648,7 @@ expander_bar.markdown("""
 * **Auteur :** olivier Boylaud  (olivier@boylaud.eu)
 * **Sources des données : ** DGCL et DGFIP.
 """)
+
+
 
 
