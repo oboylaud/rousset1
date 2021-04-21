@@ -269,12 +269,15 @@ def cartographie_classe_euros():
         indic = 'poids_dans_amp'
     if choix_unit =='en 1000 €':
        indic = 'en_milliers'
-    c1, c2 = st.beta_columns((1, 1))
-    #st.write('Paramètres')
-    with c1:
-        kl = st.number_input("NOMBRE DE CLASSES", min_value=1, value=7, step=1)  
-    with c2:
-        method = st.selectbox('METHODE DE CONSTRUCTION DES CLASSES',('Seuils naturels', 'Quantiles','Intervalle égal'))
+    st.sidebar.write("")
+    description_indic_2020()
+    st.sidebar.write("")
+    st.sidebar.write("")
+    st.sidebar.write("")
+    st.sidebar.write("")
+    st.sidebar.write("PARAMETRES DE LA CARTE")
+    kl = st.sidebar.number_input("NOMBRE DE CLASSES", min_value=1, value=7, step=1)  
+    method = st.sidebar.selectbox('METHODE DE CONSTRUCTION DES CLASSES',('Seuils naturels', 'Quantiles','Intervalle égal'))
     if method =='Seuils naturels':
         m = mapclassify.NaturalBreaks
         meth = 'Seuils naturels'
@@ -295,16 +298,12 @@ def cartographie_classe_euros():
     ctx.add_basemap(ax,source=ctx.providers.CartoDB.Positron) # fonds de carte
     ensemble_des_communes()
     st.pyplot(f)
-    mycol=['codgeo','commune',indic]
+    mycol=['commune',indic]
     tab = data_carte[mycol]
     with st.beta_expander("Afficher le tableau avec les données"):
         st.write(titre+', '+choix_unit)
         st.dataframe(tab)
-    st.sidebar.write("")
-    st.sidebar.write("")
-    st.sidebar.write("")
-    description_indic_2020()
-    #st.write(' ') 
+     
 
 
 def cartographie_classe_evo():
@@ -319,12 +318,22 @@ def cartographie_classe_evo():
         indic1='ecart en k€'
     if choix_unit1 == 'en € par habitant':
         indic1='ecart en euro par hab'
-    c1, c2 = st.beta_columns((1, 1))
-    #st.write('Paramètres')
-    with c1:
-        kl = st.number_input("NOMBRE DE CLASSES", min_value=1, value=7, step=1)  
-    with c2:
-        method = st.selectbox('METHODE DE CONSTRUCTION DES CLASSES',('Seuils naturels', 'Quantiles','Intervalle égal'))
+    with st.sidebar.beta_expander("En savoir plus sur l'indicateur"):
+        if code_var1 == 'CVAE_GFP_2020':
+            presentation_cvae()
+        if code_var1 == 'CFE_BASE_GFP_2020':
+            presentation_cfe()
+        if code_var1 == 'CFE_PROD_GFP_2020':
+            presentation_cfe()
+        if code_var1 == 'IFER_2020':
+            presentation_ifer()
+    st.sidebar.write("")
+    st.sidebar.write("")
+    st.sidebar.write("")
+    st.sidebar.write("")
+    st.sidebar.write("PARAMETRES DE LA CARTE")
+    kl = st.sidebar.number_input("NOMBRE DE CLASSES", min_value=1, value=7, step=1)  
+    method = st.sidebar.selectbox('METHODE DE CONSTRUCTION DES CLASSES',('Seuils naturels', 'Quantiles','Intervalle égal'))
     if method =='Seuils naturels':
         m = mapclassify.NaturalBreaks
     if method =='Quantiles':
@@ -344,23 +353,12 @@ def cartographie_classe_evo():
     ctx.add_basemap(ax,source=ctx.providers.CartoDB.Positron) # fonds de carte
     ensemble_des_communes()
     st.pyplot(f)
-    mycol=['codgeo','commune',indic1]
+    mycol=['commune',indic1]
     tab = data_carte[mycol]
     with st.beta_expander("Afficher le tableau avec les données"):
         st.write(titre+', '+choix_unit1)
         st.dataframe(tab)
-    st.sidebar.write("")
-    st.sidebar.write("")
-    st.sidebar.write("")
-    with st.sidebar.beta_expander("En savoir plus sur l'indicateur"):
-        if code_var1 == 'CVAE_GFP_2020':
-            presentation_cvae()
-        if code_var1 == 'CFE_BASE_GFP_2020':
-            presentation_cfe()
-        if code_var1 == 'CFE_PROD_GFP_2020':
-            presentation_cfe()
-        if code_var1 == 'IFER_2020':
-            presentation_ifer()
+    
 
 
 
