@@ -11,6 +11,7 @@ import contextily as ctx
 import streamlit as st
 
 st.set_page_config(layout="wide")
+#st.set_page_config(page_title='your_title', layout = 'wide', initial_sidebar_state = 'auto')
 
 hide_streamlit_style = """
 <style>
@@ -21,8 +22,15 @@ footer {visibility: hidden;}
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
+st.markdown("""
+<style>
+.big-font {
+    font-size:100px !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
-
+#st.markdown('<p class="big-font">my_titre !!</p>', unsafe_allow_html=True)
 
 
 def exploreFile(customers):
@@ -252,168 +260,107 @@ def cartographie_classe_euros():
     transparence = 0.95
     source = "Source : calculs sur données DGFIP et DGCL"
     titre = titreindic
-    with c2 :
-        choix_unit = st.selectbox('UNITE',('en € par habitant','en 1000 €', 'en 0/00 de la Métropole'))
-        if choix_unit =='en € par habitant':
-            indic = 'en_euros_par_habitant'
-        if choix_unit == 'écart à la moyenne par hab.':
-            indic='ecart'
-        if choix_unit =='en 0/00 de la Métropole':
-            indic = 'poids_dans_amp'
-        if choix_unit =='en 1000 €':
-            indic = 'en_milliers'
-       # parametre par defaut
-        #st.write(" ")
-        #st.write(" ")
-        #st.write(" ")
-        #st.write(" ")
-        #st.write(" ")
-        #st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write('Paramètres')
-        kl = st.number_input("Nombre de classes", min_value=1, value=7, step=1)  
-        method = st.selectbox('Méthode de construction des classes',('Seuils naturels', 'Quantiles','Intervalle égal'))
-        if method =='Seuils naturels':
-            m = mapclassify.NaturalBreaks
-        if method =='Quantiles':
-            m = mapclassify.Quantiles
-            meth = 'Quantile'
-        if method =='Intervalle égal':
-            m = mapclassify.EqualInterval
-            meth = "Intervalle égal"
+    choix_unit = st.sidebar.selectbox('UNITE',('en € par habitant','en 1000 €', 'en 0/00 de la Métropole'))
+    if choix_unit =='en € par habitant':
+        indic = 'en_euros_par_habitant'
+    if choix_unit == 'écart à la moyenne par hab.':
+        indic='ecart'
+    if choix_unit =='en 0/00 de la Métropole':
+        indic = 'poids_dans_amp'
+    if choix_unit =='en 1000 €':
+       indic = 'en_milliers'
+    c1, c2 = st.beta_columns((1, 1))
+    #st.write('Paramètres')
     with c1:
-        q10 = m(data_carte[indic],k=kl)
-        mapping = dict([(i,s) for i,s in enumerate(q10.get_legend_classes(fmt="{:.0f}"))])
-        f, ax = plt.subplots(1, figsize=(14, 14))
-        data_carte.assign(cl=q10.yb).plot(column='cl', categorical=True, k=kl, cmap=couleur, alpha=transparence, linewidth=0.9, ax=ax, edgecolor='black', legend=True, legend_kwds={'loc': 'upper left'})
-        ax.set_axis_off()
-        replace_legend_items(ax.get_legend(), mapping)
-        #ax.set_suptitle(choix_unit)
-        ax.set_title(titre+', '+choix_unit,fontsize=14, weight = 'bold')
-        plt.figtext(.15,.22,source,fontsize=12,ha='left')
-        ctx.add_basemap(ax,source=ctx.providers.CartoDB.Positron) # fonds de carte
-        #carte(indic)
-        #plt.savefig(indic+'.jpg')
-        #f.savefig(indic+".pdf", bbox_inches='tight')
-        #st.header(titre+' (en €, 2019)')
-        ensemble_des_communes()
-        st.pyplot(f)
-    #st.write('méthode de construction des classes : ',meth)
+        kl = st.number_input("NOMBRE DE CLASSES", min_value=1, value=7, step=1)  
+    with c2:
+        method = st.selectbox('METHODE DE CONSTRUCTION DES CLASSES',('Seuils naturels', 'Quantiles','Intervalle égal'))
+    if method =='Seuils naturels':
+        m = mapclassify.NaturalBreaks
+        meth = 'Seuils naturels'
+    if method =='Quantiles':
+        m = mapclassify.Quantiles
+        meth = 'Quantile'
+    if method =='Intervalle égal':
+        m = mapclassify.EqualInterval
+        meth = "Intervalle égal"
+    q10 = m(data_carte[indic],k=kl)
+    mapping = dict([(i,s) for i,s in enumerate(q10.get_legend_classes(fmt="{:.0f}"))])
+    f, ax = plt.subplots(1, figsize=(14, 14))
+    data_carte.assign(cl=q10.yb).plot(column='cl', categorical=True, k=kl, cmap=couleur, alpha=transparence, linewidth=0.9, ax=ax, edgecolor='black', legend=True, legend_kwds={'loc': 'upper left'})
+    ax.set_axis_off()
+    replace_legend_items(ax.get_legend(), mapping)
+    ax.set_title(titre+', '+choix_unit,fontsize=14, weight = 'bold')
+    plt.figtext(.15,.22,source,fontsize=12,ha='left')
+    ctx.add_basemap(ax,source=ctx.providers.CartoDB.Positron) # fonds de carte
+    ensemble_des_communes()
+    st.pyplot(f)
     mycol=['codgeo','commune',indic]
     tab = data_carte[mycol]
-    c3, c4 = st.beta_columns((1, 1))
-    with c3:
-        with st.beta_expander("Afficher le tableau avec les données"):
-            st.write(titre+', '+choix_unit)
-            st.dataframe(tab)
-    with c4:
-        description_indic_2020()
+    with st.beta_expander("Afficher le tableau avec les données"):
+        st.write(titre+', '+choix_unit)
+        st.dataframe(tab)
+    st.sidebar.write("")
+    st.sidebar.write("")
+    st.sidebar.write("")
+    description_indic_2020()
     #st.write(' ') 
 
 
 def cartographie_classe_evo():
-    #c1a, c2a = st.beta_columns((6, 1))
-    #st.sidebar.write(" ")
-    #st.sidebar.write(" ")
     couleur = 'Oranges'
     transparence = 0.95
-    source = "Source : calculs sur données DGFIP et DGCL"
+    source = "Source : calculs sur données DGFIP"
     titre = titreindic1
-    #c1a, c2a = st.beta_columns((6, 1)) 
-    with c2 :
-        choix_unit1 = st.selectbox('UNITE',('en € par habitant',"taux de croissance",'en K€'))
-        if choix_unit1 =='taux de croissance':
-            indic1 = 'TC'
-        if choix_unit1 == 'en K€':
-            indic1='ecart en k€'
-        if choix_unit1 == 'en € par habitant':
-            indic1='ecart en euro par hab'
-        #st.write(" ")
-        #st.write(" ")
-        #st.write(" ")
-        #st.write(" ")
-        #st.write(" ")
-        #st.write(" ")
-        #st.write(" ")
-        #st.write(" ")
-        #st.write(" ")
-        #st.write(" ")
-        #st.write(" ")
-        #st.write(" ")
-        #st.write(" ")
-        #st.write(" ")
-        #st.write(" ")
-        #st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write('Paramètres')
-        kl = st.number_input("Nombre de classes", min_value=1, value=7, step=1)  
-        method = st.selectbox('Méthode de construction des classes',('Seuils naturels', 'Quantiles','Intervalle égal'))
-        if method =='Seuils naturels':
-            m = mapclassify.NaturalBreaks
-        if method =='Quantiles':
-            m = mapclassify.Quantiles
-            meth = 'Quantile'
-        if method =='Intervalle égal':
-            m = mapclassify.EqualInterval
-            meth = "Intervalle égal"       
+    choix_unit1 = st.sidebar.selectbox('UNITE',('en € par habitant',"taux de croissance",'en K€'))
+    if choix_unit1 =='taux de croissance':
+        indic1 = 'TC'
+    if choix_unit1 == 'en K€':
+        indic1='ecart en k€'
+    if choix_unit1 == 'en € par habitant':
+        indic1='ecart en euro par hab'
+    c1, c2 = st.beta_columns((1, 1))
+    #st.write('Paramètres')
     with c1:
-        q10 = m(data_carte[indic1],k=kl)
-        mapping = dict([(i,s) for i,s in enumerate(q10.get_legend_classes(fmt="{:.0f}"))])
-        f, ax = plt.subplots(1, figsize=(14, 14))
-        data_carte.assign(cl=q10.yb).plot(column='cl', categorical=True, k=kl, cmap=couleur, alpha=transparence, linewidth=0.9, ax=ax, edgecolor='black', legend=True, legend_kwds={'loc': 'upper left'})
-        ax.set_axis_off()
-        replace_legend_items(ax.get_legend(), mapping)
-        #ax.set_suptitle(choix_unit)
-        ax.set_title(titre+', '+choix_unit1,fontsize=14, weight = 'bold')
-        plt.figtext(.15,.22,source,fontsize=12,ha='left')
-        ctx.add_basemap(ax,source=ctx.providers.CartoDB.Positron) # fonds de carte
-        #carte(indic)
-        #plt.savefig(indic+'.jpg')
-        #f.savefig(indic+".pdf", bbox_inches='tight')
-        #st.header(titre+' (en €, 2019)')
-        ensemble_des_communes()
-        st.pyplot(f)
-    #st.write('méthode de construction des classes : ',meth)
+        kl = st.number_input("NOMBRE DE CLASSES", min_value=1, value=7, step=1)  
+    with c2:
+        method = st.selectbox('METHODE DE CONSTRUCTION DES CLASSES',('Seuils naturels', 'Quantiles','Intervalle égal'))
+    if method =='Seuils naturels':
+        m = mapclassify.NaturalBreaks
+    if method =='Quantiles':
+        m = mapclassify.Quantiles
+        meth = 'Quantile'
+    if method =='Intervalle égal':
+        m = mapclassify.EqualInterval
+        meth = "Intervalle égal"       
+    q10 = m(data_carte[indic1],k=kl)
+    mapping = dict([(i,s) for i,s in enumerate(q10.get_legend_classes(fmt="{:.0f}"))])
+    f, ax = plt.subplots(1, figsize=(14, 14))
+    data_carte.assign(cl=q10.yb).plot(column='cl', categorical=True, k=kl, cmap=couleur, alpha=transparence, linewidth=0.9, ax=ax, edgecolor='black', legend=True, legend_kwds={'loc': 'upper left'})
+    ax.set_axis_off()
+    replace_legend_items(ax.get_legend(), mapping)
+    ax.set_title(titre+', '+choix_unit1,fontsize=14, weight = 'bold')
+    plt.figtext(.15,.22,source,fontsize=12,ha='left')
+    ctx.add_basemap(ax,source=ctx.providers.CartoDB.Positron) # fonds de carte
+    ensemble_des_communes()
+    st.pyplot(f)
     mycol=['codgeo','commune',indic1]
     tab = data_carte[mycol]
-    c3a, c4a = st.beta_columns((1, 1))
-    with c3a:
-        with st.beta_expander("Afficher le tableau avec les données"):
-            st.write(titre+', '+choix_unit1)
-            st.dataframe(tab)
-    with c4a:
-        with st.sidebar.beta_expander("En savoir plus sur l'indicateur"):
-            if code_var1 == 'CVAE_GFP_2020':
-                presentation_cvae()
-            if code_var1 == 'CFE_BASE_GFP_2020':
-                presentation_cfe()
-            if code_var1 == 'CFE_PROD_GFP_2020':
-                presentation_cfe()
-            if code_var1 == 'IFER_2020':
-                presentation_ifer()
+    with st.beta_expander("Afficher le tableau avec les données"):
+        st.write(titre+', '+choix_unit1)
+        st.dataframe(tab)
+    st.sidebar.write("")
+    st.sidebar.write("")
+    st.sidebar.write("")
+    with st.sidebar.beta_expander("En savoir plus sur l'indicateur"):
+        if code_var1 == 'CVAE_GFP_2020':
+            presentation_cvae()
+        if code_var1 == 'CFE_BASE_GFP_2020':
+            presentation_cfe()
+        if code_var1 == 'CFE_PROD_GFP_2020':
+            presentation_cfe()
+        if code_var1 == 'IFER_2020':
+            presentation_ifer()
 
 
 
@@ -436,11 +383,8 @@ def chargement_data_carte_base():
 #st.write(' ')
 #st.sidebar.header('MENU')
 st.title("La contribution des communes d'Aix-Marseille-Provence à la fiscalité locale 2016-2020")
-c1, c2 = st.beta_columns((4, 1))
-with c2:
-    st.write(" ")
-    st.write(" ")
-    choix = st.radio(" ",('2020','Evolution entre 2016 et 2020'))
+st.sidebar.write("SELECTION DE LA PERIODE, DE L'INDICATEUR ET DE L'UNITE")
+choix = st.sidebar.selectbox("PERIODE",('2020','Evolution entre 2016 et 2020'))
 
 
 if choix == 'Accueil':
@@ -452,17 +396,7 @@ if choix == 'Accueil':
 if choix == '2020':
     #st.title("Contributions des 92 communes de la métropole d'Aix-Marseille-Provence à la fiscalité économique locale")
     data_carte=chargement_data_carte_base().copy()
-    #st.sidebar.title('Contributions des 92 communes à la Métropole')
-    #c1, c2 = st.beta_columns((4, 1))
-    #st.header('Selectionner dans le menu déroulant la ressource fiscale')
-    #st.sidebar.header('INDICATEURS')
-    #c1, c2 = st.beta_columns((5, 1))
-    with c2:
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        st.write(" ")
-        selec = st.selectbox("INDICATEUR ",('CVAE : due','CVAE : dégrevements', 'CVAE : total','CFE : base','CFE : produit', 'IFER','Tascom', "Compensations TP",'Total (sans ajustement)',"Total (avec ajustement)"))
+    selec = st.sidebar.selectbox("INDICATEUR ",('CVAE : due','CVAE : dégrevements', 'CVAE : total','CFE : base','CFE : produit', 'IFER','Tascom', "Compensations TP",'Total (sans ajustement)',"Total (avec ajustement)"))
     if selec == 'CFE : base':
         code_var = 'CFE_BASE_GFP_2020'
         titreindic = "Base 2020 de la Cotisation foncière des entreprises (CFE)"
@@ -505,16 +439,10 @@ if choix == '2020':
 
 if choix == 'Evolution entre 2016 et 2020':
     data_carte=chargement_data_carte_base().copy()
-    #st.title('Contributions des 92 communes à la Métropole')
-    #st.header('Selectionner dans le menu déroulant la ressource fiscale')
-    #code_var1="att1"
-    #code_var2="att2"
-    with c2:
-        selec2 = st.selectbox("INDICATEUR",('CVAE','CFE : base','CFE : produit'))
+    selec2 = st.sidebar.selectbox("INDICATEUR",('CVAE','CFE : base','CFE : produit'))
     if selec2 == 'CVAE':
         code_var1 = 'CVAE_GFP_2020'
         code_var2 = 'CVAE_2016'
-        #data_carte['TC']=(data_carte[code_var1]-data_carte[code_var2])/data_carte[code_var2]*100
         titreindic1 = "Evolution de la Cotisation sur la valeur ajoutée des entreprises (CVAE) entre 2016 et 2020"
     if selec2 == 'CFE : base':
         code_var1 = 'CFE_BASE_GFP_2020'
