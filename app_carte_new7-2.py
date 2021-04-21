@@ -10,8 +10,8 @@ sns.set(style="ticks")
 import contextily as ctx
 import streamlit as st
 
-st.set_page_config(layout="wide")
-#st.set_page_config(page_title='your_title', layout = 'wide', initial_sidebar_state = 'auto')
+#st.set_page_config(layout="wide")
+st.set_page_config(layout = 'wide', initial_sidebar_state = 'expanded')
 
 hide_streamlit_style = """
 <style>
@@ -394,8 +394,8 @@ def chargement_data_carte_base():
 #st.write(' ')
 #st.write(' ')
 #st.sidebar.header('MENU')
-st.header("La contribution des communes d'Aix-Marseille-Provence à la fiscalité locale 2016-2020")
-st.sidebar.header("La contribution des communes d'Aix-Marseille-Provence à la fiscalité locale 2016-2020")
+st.header("La contribution des communes à la fiscalité locale  d'Aix-Marseille-Provence")
+st.sidebar.header("La contribution des communes à la fiscalité locale  d'Aix-Marseille-Provence")
 st.sidebar.write(" ")
 st.sidebar.write("CHOIX DE LA PERIODE, DE L'INDICATEUR ET DE L'UNITE")
 choix = st.sidebar.selectbox("PERIODE",('2020','Evolution entre 2016 et 2020'))
