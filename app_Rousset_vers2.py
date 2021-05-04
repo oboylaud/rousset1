@@ -528,14 +528,14 @@ if choix == 'Contributions des 92 communes aux impôts économiques de la Métro
     data_carte['en_euros_par_habitant']=data_carte[code_var1]/data_carte['POP_INSEE']
     data_carte['en_milliers']=data_carte[code_var1]/1000
     with c1 :
-    	choix_unit1 = st.selectbox("Choix de l'unité",('€ par hab.','1000 €'))
-    if choix_unit1 =='€ par hab.':
+    	choix_unit1 = st.selectbox("Choix de l'unité",('en € par hab.','en 1000 €'))
+    if choix_unit1 =='en € par hab.':
         indic1 = 'en_euros_par_habitant'
     if choix_unit1 == 'écart à la moyenne par hab.':
         indic1='ecart'
     if choix_unit1 =='en 0/00 de la Métropole':
         indic1 = 'poids_dans_amp'
-    if choix_unit1 =='1000 €':
+    if choix_unit1 =='en 1000 €':
         indic1 = "en_milliers"
     source = "Source : calculs sur données DGFIP et DGCL"
     carac="Non"
@@ -567,6 +567,7 @@ if choix == 'Evolution entre 2016 et 2020 des composantes de la CET des communes
     if selec2 == 'CET':
         code_var1 = 'CET_GFP_2020'
         code_var2 = 'CET_GFP_2016'
+        titreindic1 = "Evolution de la Contribution économique térritoriale (CET) entre 2016 et 2020"
     if selec2 == 'CFE : base':
         code_var1 = 'CFE_BASE_GFP_2020'
         code_var2 = 'CFE_BASE_GFP_2016'
@@ -583,12 +584,12 @@ if choix == 'Evolution entre 2016 et 2020 des composantes de la CET des communes
     data_carte['ecart en k€']=(data_carte[code_var1]-data_carte[code_var2])/1000
     data_carte['ecart en euro par hab']=data_carte['ecart en k€']/data_carte['POP_INSEE']*1000
     with c1 :
-    	choix_unit1 = st.selectbox("Choix de l'unité",('€ par hab.',"TC",'1000 €'))
-    if choix_unit1 =='TC':
+    	choix_unit1 = st.selectbox("Choix de l'unité",('en € par hab.',"Taux de croissance",'en 1000 €'))
+    if choix_unit1 =='Taux de croissance':
        	indic1 = 'TC'
-    if choix_unit1 == '1000 €':
+    if choix_unit1 == 'en 1000 €':
        	indic1='ecart en k€'
-    if choix_unit1 == '€ par hab.':
+    if choix_unit1 == 'en € par hab.':
        	indic1='ecart en euro par hab'
     source = "Source : calculs sur données DGFIP et DGCL"
     carac="Non"
