@@ -226,20 +226,20 @@ def presentation_ifer():
     st.write("L'indicateur proposé est la valeur de l'IFER 2019 (source DGCL) plus l'évolution de l'IFER entre 2019 et 2020 pour les composantes connues (source DGFIP)")
 
 def presentation_compensation_TP():
-    st.write("Jusqu’en 2009, la principale ressource des EPCI à fiscalité professionnelle unique était la taxe professionnelle. La réforme de la taxe professionnelle s’est traduite par un nouveau schéma de financement qui repose sur :")
-    st.write("• Une répartition de nouvelles impositions constituées par les différentes composantes de la contribution économique territoriale (CET) et de l’imposition forfaitaire sur les entreprises de réseaux (IFER) ;")
-    st.write("• Une réallocation des impôts locaux existants : taxe d’habitation et taxes foncières avec le transfert des frais de gestion associés ;")
-    st.write("• Un transfert de ressources fiscales existantes : taxe sur les surfaces commerciales (TaSCom), taxe sur les conventions d’assurance (TSCA) et droits de mutation à titre onéreux (DTMO).")
-    st.write("Les pertes de produits TP non compensés par les nouveaux impôts sont particulièrement élevées sur Rousset et les communes industrielles de l’Étang de Berre")
+    st.write("Jusqu’en 2009, la principale ressource des EPCI à fiscalité professionnelle unique était la taxe professionnelle. La réforme de la taxe professionnelle s’est traduite par un nouveau schéma de financement.")
+    #st.write("• Une répartition de nouvelles impositions constituées par les différentes composantes de la contribution économique territoriale (CET) et de l’imposition forfaitaire sur les entreprises de réseaux (IFER) ;")
+    #st.write("• Une réallocation des impôts locaux existants : taxe d’habitation et taxes foncières avec le transfert des frais de gestion associés ;")
+    #st.write("• Un transfert de ressources fiscales existantes : taxe sur les surfaces commerciales (TaSCom), taxe sur les conventions d’assurance (TSCA) et droits de mutation à titre onéreux (DTMO).")
     st.write("Pour garantir le niveau de ressources de chaque collectivité avant et après la réforme, deux mécanismes ont été mis en place par l’État : une dotation de compensation de la réforme de la taxe professionnelle (DCRTP) financée par l’État et la garantie individuelle de ressources (GIR) fonctionnant par abondement d’un fonds par les collectivités qui ont plus de ressources fiscales après réforme au profit des collectivités qui en ont moins.")
-    st.write("Le montant par commune peut être apréhendé à travers la différence entre les ressources 2009 (avant la réforme de la TP) et en 2011 (après la réforme")
+    st.write("Les gains et pertes par communne qui sont consolidés dans les dotations peuvent être apréhendés à travers la différence entre les ressources 2009 (avant la réforme de la TP) et en 2011 (après la réforme).") 
+    st.write("L'ajustement retenu correspond cet écart. Il est particulièrement élevé sur Rousset (pôle microélectronique) et les communes industrielles de l’Étang de Berre")
 
 def presentation_total_avec_ajus():
-    st.write("L'indicateur est construit comme la somme de la CVAE, de la CFE, de la Tascom, de l'IFER et de la taxe additionnelle à la taxe foncière sur les propriétés non bâties plus la quote part de la dotation de compensation de la réforme de la taxe professionnelle (DCRTP) et du GIR rattachable à la commune.")
+    st.write("L'indicateur est construit comme la somme de la CVAE, de la CFE, de la Tascom, de l'IFER et de la quote part de la dotation de compensation de la réforme de la taxe professionnelle (DCRTP) et du GIR rattachable à la commune.")
     st.write(" Cette quote part est calculé comme la différence entre les ressources de la fiscalité économique rattachable à la commune en 2011 et celle en 2009.")
 
 def presentation_total():
-    st.write("L'indicateur est construit comme la somme de la CVAE, de la CFE, de la Tascom, de l'IFER et de la taxe additionnelle à la taxe foncière sur les propriétés non bâties.")
+    st.write("L'indicateur est construit comme la somme de la CVAE, de la CFE, de la Tascom et de l'IFER.")
     st.write("Il ne prend pas en compte les compensations de la réforme de la TP")
     st.write("")
 
@@ -304,7 +304,7 @@ def cartographie_classe():
         st.write(" ")
         st.write(" ")
         st.write(" ")
-        st.write(" Métropole Aix-Marseille-Provence par commune")
+        #st.write(" Métropole Aix-Marseille-Provence par commune")
         st.write(" ")
         st.write(" ")
         st.write(" ")
@@ -528,15 +528,15 @@ if choix == 'Contributions des 92 communes aux impôts économiques de la Métro
     data_carte['en_euros_par_habitant']=data_carte[code_var1]/data_carte['POP_INSEE']
     data_carte['en_milliers']=data_carte[code_var1]/1000
     with c1 :
-    	choix_unit1 = st.selectbox("Choix de l'unité",('en € par habitant','en 1000 €', 'écart la moyenne par hab.','en 0/00 de la Métropole'))
-    if choix_unit1 =='en € par habitant':
+    	choix_unit1 = st.selectbox("Choix de l'unité",('€ par hab.','1000 €'))
+    if choix_unit1 =='€ par hab.':
         indic1 = 'en_euros_par_habitant'
     if choix_unit1 == 'écart à la moyenne par hab.':
         indic1='ecart'
     if choix_unit1 =='en 0/00 de la Métropole':
         indic1 = 'poids_dans_amp'
-    if choix_unit1 =='en 1000 €':
-        indic1 = 'en_milliers'
+    if choix_unit1 =='1000 €':
+        indic1 = "en_milliers"
     source = "Source : calculs sur données DGFIP et DGCL"
     carac="Non"
     cartographie_classe()
@@ -558,12 +558,15 @@ if choix == 'Evolution entre 2016 et 2020 des composantes de la CET des communes
     	st.write(" ")
     	st.write(" ")
     	st.write(" ")
-    	selec2 = st.selectbox("Choix de l'impôt",('CVAE','CFE : base','CFE : produit'))
+    	selec2 = st.selectbox("Choix de l'impôt",('CET','CVAE','CFE : produit','CFE : base'))
     if selec2 == 'CVAE':
         code_var1 = 'CVAE_GFP_2020'
         code_var2 = 'CVAE_GFP_2016'
         #data_carte['TC']=(data_carte[code_var1]-data_carte[code_var2])/data_carte[code_var2]*100
         titreindic1 = "Evolution de la Cotisation sur la valeur ajoutée des entreprises (CVAE) entre 2016 et 2020"
+    if selec2 == 'CET':
+        code_var1 = 'CET_GFP_2020'
+        code_var2 = 'CET_GFP_2016'
     if selec2 == 'CFE : base':
         code_var1 = 'CFE_BASE_GFP_2020'
         code_var2 = 'CFE_BASE_GFP_2016'
@@ -580,12 +583,12 @@ if choix == 'Evolution entre 2016 et 2020 des composantes de la CET des communes
     data_carte['ecart en k€']=(data_carte[code_var1]-data_carte[code_var2])/1000
     data_carte['ecart en euro par hab']=data_carte['ecart en k€']/data_carte['POP_INSEE']*1000
     with c1 :
-    	choix_unit1 = st.selectbox("Choix de l'unité",('en € par habitant',"taux de croissance",'en K€'))
-    if choix_unit1 =='taux de croissance':
+    	choix_unit1 = st.selectbox("Choix de l'unité",('€ par hab.',"TC",'1000 €'))
+    if choix_unit1 =='TC':
        	indic1 = 'TC'
-    if choix_unit1 == 'en K€':
+    if choix_unit1 == '1000 €':
        	indic1='ecart en k€'
-    if choix_unit1 == 'en € par habitant':
+    if choix_unit1 == '€ par hab.':
        	indic1='ecart en euro par hab'
     source = "Source : calculs sur données DGFIP et DGCL"
     carac="Non"
