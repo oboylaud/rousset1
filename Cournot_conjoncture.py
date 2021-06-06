@@ -12,7 +12,7 @@ sns.set(style="ticks")
 import warnings
 warnings.filterwarnings("ignore")
 
-st.set_page_config(layout="wide")
+#st.set_page_config(layout="wide")
 
 hide_streamlit_style = """
 <style>
