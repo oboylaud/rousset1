@@ -214,13 +214,15 @@ with c1 :
 	fproductivite()
 with c2 :
 	factivite()
-
+st.write(' ')
+st.write(' ')
 c3, c34, c4 = st.beta_columns((5, 1,5))
 with c3 :
 	interimaire()
 with c4 :
 	activite_partielle()
-
+st.write(' ')
+st.write(' ')
 c5, c56, c6 = st.beta_columns((5, 1, 5))
 with c5 :
 	subventions()
